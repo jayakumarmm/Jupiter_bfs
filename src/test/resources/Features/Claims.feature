@@ -14,7 +14,7 @@ In order to get Claim adjudication updates I need data from batch and realtime s
   
     Examples: 
       | col_nm          | sql                                                              | 
-      | TransID         | src/test/resources/Test_Scripts/TransID_null_verify.sql		   | 
+      | TransID         | src/test/resources/Test_Scripts/TransID_null_verify.sql          |
       | BranchID        | src/test/resources/Test_Scripts/BranchID_null_verify.sql         | 
       | AccountID       | src/test/resources/Test_Scripts/AccountID_data_check.sql         | 
   
