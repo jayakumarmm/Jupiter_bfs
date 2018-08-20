@@ -1,0 +1,1 @@
+select * from banking.transaction where TransID is null

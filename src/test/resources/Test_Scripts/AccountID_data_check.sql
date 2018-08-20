@@ -1,0 +1,1 @@
+select * from banking.account where  AccountID is null

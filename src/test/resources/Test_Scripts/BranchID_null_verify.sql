@@ -1,0 +1,1 @@
+select * from banking.branch where BranchID is NULL

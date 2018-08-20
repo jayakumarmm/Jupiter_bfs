@@ -1,0 +1,1 @@
+select * from rep_mysql_rev_agg_data_check where Trans_dt is NULL

@@ -1,1 +1,1 @@
-# Jupiter_bfs
+Jupiter-Demo project
