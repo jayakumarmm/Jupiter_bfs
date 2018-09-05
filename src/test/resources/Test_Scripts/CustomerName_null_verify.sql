@@ -1,0 +1,1 @@
+select * from banking.customers where customer_name is null

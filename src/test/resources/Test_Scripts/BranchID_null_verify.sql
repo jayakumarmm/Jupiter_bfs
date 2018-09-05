@@ -1,1 +1,1 @@
-select * from banking.branch where BranchID is NULL
+select * from banking.customers where BranchID is NULL

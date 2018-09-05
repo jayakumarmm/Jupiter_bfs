@@ -1,0 +1,1 @@
+SELECT customer_orig FROM banking.customers WHERE STR_TO_DATE(customer_orig, '%d-%b-%Y') IS NOT NULL

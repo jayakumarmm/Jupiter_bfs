@@ -1,0 +1,1 @@
+select count(clientID) as cnt from banking.customers group by clientId having count(*) < 1
