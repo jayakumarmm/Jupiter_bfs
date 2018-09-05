@@ -2,86 +2,58 @@ Feature: Validating all Extract, Transform and load scenearios for Bank Customer
 
   @structurevalidation
   Scenario Outline: Validating the column names in the target system.
-    Given The target table "<tgt_tbl_nm>" is loaded and verified by running "<sql>"
-    Then The target table count "<tgt_tbl_nm>" is "<tgt_tbl_rec_cnt>" and verified by running "<sql>"
+    Given The target table "<tgt_tbl_nm>" is loaded and verified by running "<sql_1>"
+    Then The target table "<tgt_tbl_nm>" column names are verified by running "<sql_2>"
 
     Examples: 
-      | tgt_tbl_nm            | tgt_tbl_rec_cnt | sql                                                       |
-      | test.Clms_rev_agg_rep |               2 | src/test/resources/Test_Scripts/rep_branch_data_check.sql |
+      | tgt_tbl_nm        | sql_1                                                     | sql_2                                                    |
+      | banking.customers | src/test/resources/Test_Scripts/target_tbl_load_check.sql | src/test/resources/Test_Scripts/target_cols_nm_check.sql |
 
   @Mappingvalidation
   Scenario Outline: Validating the mapping document to ensure all the information has been provided.
-    Then No records for the column "<col_nm>" should be NULL when running "<sql>"
+    Then The target table "<tgt_tbl_nm>" mapping logics are verified by running "<sql_3>"
 
     Examples: 
-      | col_nm    | sql                                                      |
-      | TransID   | src/test/resources/Test_Scripts/TransID_null_verify.sql  |
-      | BranchID  | src/test/resources/Test_Scripts/BranchID_null_verify.sql |
-      | AccountID | src/test/resources/Test_Scripts/AccountID_data_check.sql |
+      | tgt_tbl_nm        | sql_3                                                        |
+      | banking.customers | src/test/resources/Test_Scripts/target_tbl_mapping_check.sql |
 
   @validatingconstraints
   Scenario Outline: Validating the constraints and ensuring that they are applied on the expected tables.
-    Given The target table "<tgt_tbl_nm>" is loaded and verified by running "<sql>"
-    Then The target table count "<tgt_tbl_nm>" is "<tgt_tbl_rec_cnt>" and verified by running "<sql>"
+    Then The target table "<tgt_tbl_nm>" constraints are verified by running "<sql_4>"
 
     Examples: 
-      | tgt_tbl_nm            | tgt_tbl_rec_cnt | sql                                                       |
-      | test.Clms_rev_agg_rep |               2 | src/test/resources/Test_Scripts/rep_branch_data_check.sql |
-
-  @Datacompletenessvalidation
-  Scenario Outline: Validating the number of records in the source and the target systems.
-    Then No records for the column "<col_nm>" should be NULL when running "<sql>"
-
-    Examples: 
-      | col_nm    | sql                                                      |
-      | TransID   | src/test/resources/Test_Scripts/TransID_null_verify.sql  |
-      | BranchID  | src/test/resources/Test_Scripts/BranchID_null_verify.sql |
-      | AccountID | src/test/resources/Test_Scripts/AccountID_data_check.sql |
-
-  @Datacorrectnessvalidation
-  Scenario Outline: Validating misspelled or inaccurate data found in Target system.
-    Given The target table "<tgt_tbl_nm>" is loaded and verified by running "<sql>"
-    Then The target table count "<tgt_tbl_nm>" is "<tgt_tbl_rec_cnt>" and verified by running "<sql>"
-
-    Examples: 
-      | tgt_tbl_nm            | tgt_tbl_rec_cnt | sql                                                       |
-      | test.Clms_rev_agg_rep |               2 | src/test/resources/Test_Scripts/rep_branch_data_check.sql |
-
-  @Datatransformvalidation
-  Scenario Outline: Validating the data transformation logic between source and target systems.
-    Then No records for the column "<col_nm>" should be NULL when running "<sql>"
-
-    Examples: 
-      | col_nm    | sql                                                      |
-      | TransID   | src/test/resources/Test_Scripts/TransID_null_verify.sql  |
-      | BranchID  | src/test/resources/Test_Scripts/BranchID_null_verify.sql |
-      | AccountID | src/test/resources/Test_Scripts/AccountID_data_check.sql |
+      | tgt_tbl_nm        | sql_4                                                            |
+      | banking.customers | src/test/resources/Test_Scripts/target_tbl_constraints_check.sql |
 
   @Dataqualityvalidation
-  Scenario Outline: Validating misspelled or inaccurate data found in Target system.
-    Given The target table "<tgt_tbl_nm>" is loaded and verified by running "<sql>"
-    Then The target table count "<tgt_tbl_nm>" is "<tgt_tbl_rec_cnt>" and verified by running "<sql>"
+  Scenario Outline: Validating the non null columns in the target table
+    Then No records for the column "<col_nm>" should be NULL when running "<sql_5>"
 
     Examples: 
-      | tgt_tbl_nm            | tgt_tbl_rec_cnt | sql                                                       |
-      | test.Clms_rev_agg_rep |               2 | src/test/resources/Test_Scripts/rep_branch_data_check.sql |
+      | col_nm        | sql_5                                                        |
+      | customer_name | src/test/resources/Test_Scripts/CustomerName_null_verify.sql |
+      | BranchID      | src/test/resources/Test_Scripts/BranchID_null_verify.sql     |
+
+  @Datevalidation
+  Scenario Outline: Validating the date fields for various actions performed in ETL process.
+    Then Target table date column "<col_nm>" is validated by running "<sql_8>"
+
+    Examples: 
+      | col_nm        | sql_8                                                     |
+      | customer_orig | src/test/resources/Test_Scripts/target_tbl_date_check.sql |
 
   @Duplicatevalidation
   Scenario Outline: Validating the duplicate values in the target system when data is coming from multiple columns from the source system
-    Then No records for the column "<col_nm>" should be NULL when running "<sql>"
+    Then The target table "<tgt_tbl_nm>" duplicate records are verified by running "<sql_6>"
 
     Examples: 
-      | col_nm    | sql                                                      |
-      | TransID   | src/test/resources/Test_Scripts/TransID_null_verify.sql  |
-      | BranchID  | src/test/resources/Test_Scripts/BranchID_null_verify.sql |
-      | AccountID | src/test/resources/Test_Scripts/AccountID_data_check.sql |
+      | tgt_tbl_nm        | sql_6                                                          |
+      | banking.customers | src/test/resources/Test_Scripts/target_tbl_duplicate_check.sql |
 
-  @Datevalidation
-  Scenario Outline: Validating the field for various actions performed in ETL process.
-    Then No records for the column "<col_nm>" should be NULL when running "<sql>"
+  @DataCompletenessvalidation
+  Scenario Outline: Validating the total records between source and target system
+    Then The target table "<tgt_tbl_nm>" data completeness is verified by running "<sql_7>"
 
     Examples: 
-      | col_nm    | sql                                                      |
-      | TransID   | src/test/resources/Test_Scripts/TransID_null_verify.sql  |
-      | BranchID  | src/test/resources/Test_Scripts/BranchID_null_verify.sql |
-      | AccountID | src/test/resources/Test_Scripts/AccountID_data_check.sql |
+      | tgt_tbl_nm        | sql_7                                                         |
+      | banking.customers | src/test/resources/Test_Scripts/target_tbl_complete_check.sql |
