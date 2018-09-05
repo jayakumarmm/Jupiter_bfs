@@ -9,9 +9,9 @@ import jupiter.cts.MySQLConector.MySqlConnector;
 
 public class Stepdef {
 	
-	//String parampath=System.getProperty("paramdir");
+	String parampath=System.getProperty("paramdir");
 	
-	String parampath = "C:/Users/431906/Documents/Jupiter_claims-master/jupter_demo/jupiter/jupiterclone_1_1/";
+	//String parampath = "C:/Users/431906/Documents/Jupiter_claims-master/jupter_demo/jupiter/jupiterclone_1_1/";
 	@Given("^The target table \"([^\"]*)\" is loaded and verified by running \"([^\"]*)\"$")
 	public void the_target_table_is_loaded_and_verified_by_running(String arg1, String arg2) throws Throwable  {
 		System.out.println("started");
