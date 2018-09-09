@@ -2,8 +2,8 @@ Feature: Validating all Extract, Transform and load scenearios for Bank Customer
 
   @structurevalidation
   Scenario Outline: Validating the column names in the target system.
-    Given The target table "<tgt_tbl_nm>" is loaded and verified by running "<sql_1>"
-    Then The target table "<tgt_tbl_nm>" column names are verified by running "<sql_2>"
+    Given The target table "<tgt_tbl_nm>" column names are verified by running "<sql_2>"
+    Then The target table "<tgt_tbl_nm>" is loaded and verified by running "<sql_1>"
 
     Examples: 
       | tgt_tbl_nm        | sql_1                                                     | sql_2                                                    |
